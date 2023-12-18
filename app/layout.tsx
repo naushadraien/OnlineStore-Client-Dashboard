@@ -4,6 +4,8 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/navbar";
 import { ModalProvider } from "@/providers/modal-provider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const urbanist = Urbanist({ subsets: ["latin"] });
 
@@ -21,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={urbanist.className}>
         <ModalProvider />
+        <ToastContainer hideProgressBar />
         <Navbar />
         {children}
         <Footer />

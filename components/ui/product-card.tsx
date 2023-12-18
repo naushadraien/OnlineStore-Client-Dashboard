@@ -1,19 +1,20 @@
 "use client";
 
+import Currency from "@/components/ui/currency";
 import IconButton from "@/components/ui/icon-button";
+import useCart from "@/hooks/use-cart";
+import usePreviewModal from "@/hooks/use-preview-modal";
 import { Product } from "@/types";
 import { Expand, ShoppingCart } from "lucide-react";
 import Image from "next/image";
-import Currency from "@/components/ui/currency";
 import { useRouter } from "next/navigation";
 import { MouseEventHandler } from "react";
-import usePreviewModal from "@/hooks/use-preview-modal";
-
 interface ProductCardProps {
   data: Product;
 }
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const router = useRouter();
+  const cart = useCart();
   const handleClick = () => {
     router.push(`/products/${data?.id}`);
   };
@@ -23,6 +24,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const onPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation(); //stops the bubbling of an event to parent elements, preventing any parent event handlers from being executed.
     previewModal.onOpen(data);
+  };
+
+  const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.stopPropagation(); //stops the bubbling of an event to parent elements, preventing any parent event handlers from being executed.
+    cart.addItem(data);
   };
 
   return (
@@ -45,7 +51,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
               icon={<Expand size={20} className="text-gray-600" />}
             />
             <IconButton
-              onClick={() => {}}
+              onClick={onAddToCart}
               icon={<ShoppingCart size={20} className="text-gray-600" />}
             />
           </div>
