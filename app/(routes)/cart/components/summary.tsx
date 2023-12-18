@@ -36,7 +36,7 @@ const Summary = () => {
       }
     );
 
-    return (window.location = response.data.url); // redirect to checkout page on stripe website
+    window.location = response.data.url; // redirect to checkout page on stripe website
   };
 
   return (
